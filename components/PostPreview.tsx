@@ -1,33 +1,32 @@
-import { styled } from 'nativewind';
-import { View, Image } from 'react-native'
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import PagerView from 'react-native-pager-view';
-const PostPreview = () => {
-    const images = [
-        {
-            'title':'Secretive Plotter',
-            'url':'https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2Ftliimptmiai91.jpg'
-        },{
-            'title':'The Great Plotter',
-            'url':'https://i.pinimg.com/736x/a6/fc/1c/a6fc1ce13c67b789d94e6c84fd74e448.jpg'
-        },{
-            'title':'Chaos',
-            'url':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD4SBpv0LNSlva5oaHcfT2AHpRrJvP8rRiEA&s'
-    
-        }
-    ]
-    return (
-        <View>
-            <PagerView initialPage={0}>
-            {images.map((image, index) => (
-                <View className='justify-center content-center' key={index} collapsable={false}>
-                    <Image
-                        source={{uri: image.url}}
-                        style={{width: 100, height: 100}}/>
-                    </View>
-            ))}
-            </PagerView>
-            </View>
-    )
-}
 
-export default PostPreview
+export default function PostPreview() {
+    return (
+        <View style={styles.container}>
+          <PagerView style={styles.container} initialPage={0}>
+            <View style={styles.page} key="1">
+              <Text>First page</Text>
+              <Text>Swipe ➡️</Text>
+            </View>
+            <View style={styles.page} key="2">
+              <Text>Second page</Text>
+            </View>
+            <View style={styles.page} key="3">
+              <Text>Third page</Text>
+            </View>
+          </PagerView>
+        </View>
+      );
+    }
+    
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+      },
+      page: {
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+    });
