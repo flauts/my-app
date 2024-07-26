@@ -28,8 +28,10 @@ export default function PostPreview({ post }: { post: Post }) {
             <Image resizeMode='cover' source={{ uri: item }} style={styles.image} />
           )}
         />
+        <View className='flex-col items-left'>
         <Text style={styles.title}>{post.title}</Text>
         <Text style={styles.description}>{post.description}</Text>
+      </View>
       </View>
     );
 }
@@ -49,10 +51,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-        margin: 8,
     },
     description: {
         fontSize: 14,
-        margin: 2,
     },
 });

@@ -89,6 +89,13 @@ const HomeScreen = () => {
         );
       };
 
+    const footer = () =>{
+        return (
+            <View className='items-center'>
+                <Text className='text-xl font-serif'>Damn thats crazy</Text>
+            </View>
+        )
+    }
   
     const insets = useSafeAreaInsets();
     return (
@@ -96,6 +103,7 @@ const HomeScreen = () => {
             <FlatList 
             nestedScrollEnabled
             ListHeaderComponent={header}
+            ListFooterComponent={footer}
             data={feed}
             keyExtractor={(item,index) => index.toString()}
             renderItem={({item}) => (
