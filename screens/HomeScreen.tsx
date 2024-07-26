@@ -99,7 +99,7 @@ const HomeScreen = () => {
   const footer = () => {
     return (
       <View className="items-center">
-        <Text className="text-xl font-serif">Damn thats crazy</Text>
+        <Text className="text-xl">Damn thats crazy</Text>
       </View>
     );
   };

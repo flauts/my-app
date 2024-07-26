@@ -1,5 +1,5 @@
 import { styled } from "nativewind";
-import React from "react";
+import { useState } from "react";
 import {
   View,
   Image,
@@ -11,6 +11,8 @@ import {
 import { FlatList } from "react-native";
 import { BookmarkIcon, LikeIcon, ShareIcon } from "./Icons";
 import { Link } from "expo-router";
+import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
+import PostModal from "./PostModal";
 
 type Post = {
   id: number;
@@ -27,6 +29,7 @@ const StyledPressable = styled(Pressable);
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function PostPreview({ post }: { post: Post }) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <FlatList
@@ -44,16 +47,17 @@ export default function PostPreview({ post }: { post: Post }) {
         )}
       />
       <View className="flex-row justify-between mt-2 gap-x-2">
-        <Link asChild href={`/post/${post.id}`}>
-          <Pressable className="flex-col items-left flex-shrink">
-            <Text className="text-justify" style={styles.title}>
-              {post.title}
-            </Text>
-            <Text className="text-justify" style={styles.description}>
-              {post.description.slice(0, 100)}...
-            </Text>
-          </Pressable>
-        </Link>
+        <Pressable
+          className="flex-col items-left flex-shrink"
+          onPressOut={() => setIsModalVisible(!isModalVisible)}
+        >
+          <Text className="text-justify" style={styles.title}>
+            {post.title}
+          </Text>
+          <Text className="text-justify" style={styles.description}>
+            {post.description.slice(0, 100)}...
+          </Text>
+        </Pressable>
         <View className="flex-row gap-x-4">
           <StyledPressable className={`active:opacity-50`}>
             <LikeIcon />
@@ -66,6 +70,7 @@ export default function PostPreview({ post }: { post: Post }) {
           </StyledPressable>
         </View>
       </View>
+      {isModalVisible && <PostModal post={post} />}
     </View>
   );
 }
