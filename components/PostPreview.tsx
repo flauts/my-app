@@ -1,40 +1,58 @@
 import React from 'react';
-import { StyleSheet, View, Text,Image } from 'react-native';
-import PagerView from 'react-native-pager-view';
+import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
+import { FlatList } from 'react-native';
 
-type Post ={
-    user:string;
-    title:string;
-    description:string;
-    images:{
-        url:string[];
+type Post = {
+    user: string;
+    title: string;
+    description: string;
+    images: {
+        url: string[];
     };
 }
 
 
-export default function PostPreview(post:Post) {
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+export default function PostPreview({ post }: { post: Post }) {
+
     return (
         <View style={styles.container}>
-          <PagerView style={styles.container} initialPage={0}>
-            {post.images.url.map((image_url,index) =>(
-                <View style={styles.page} key={index}>
-                    <Image source={{uri:image_url}} style={{width:'100%',height:'100%'}} />
-                    </View>
-            ))}
-          </PagerView>
-          <Text>{post.title}</Text>
-          <Text>{post.description}</Text>
+        <FlatList
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator
+          data={post.images.url}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <Image resizeMode='cover' source={{ uri: item }} style={styles.image} />
+          )}
+        />
+        <Text style={styles.title}>{post.title}</Text>
+        <Text style={styles.description}>{post.description}</Text>
+      </View>
+    );
+}
 
-        </View>
-      );
-    }
-    
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-      },
-      page: {
+const styles = StyleSheet.create({
+    container: {
+        marginBottom: 16,
+        },
+    page: {
         justifyContent: 'center',
         alignItems: 'center',
-      },
-    });
+    },
+    image: {
+        width: SCREEN_WIDTH,
+        height: 400,
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        margin: 8,
+    },
+    description: {
+        fontSize: 14,
+        margin: 2,
+    },
+});
