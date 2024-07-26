@@ -1,16 +1,29 @@
-import React from 'react'
-import {View,Text} from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Link } from "expo-router";
+import React from "react";
+import { View, Text, Pressable } from "react-native";
+import { UserIcon, SettingsIcon, NotificationIcon } from "./Icons";
+import { styled } from "nativewind";
+
+const StyledPressable = styled(Pressable);
+
 const Header = () => {
   return (
-    <View className='flex-row mx-3 my-4 justify-between'>
-        <Icon name='user' size={22}/>
-        <View className='flex-row gap-x-8'>
-        <Icon name="bell" size={22}/>
-        <Icon name='gear' size={22} />
-        </View>
+    <View className="flex-row mx-3 my-4 justify-between">
+      <StyledPressable className={`active:opacity-20`}>
+        <UserIcon />
+      </StyledPressable>
+      <View className="flex-row gap-x-8">
+        <StyledPressable className={`active:opacity-20`}>
+          <NotificationIcon />
+        </StyledPressable>
+        <Link asChild href="/settings">
+          <StyledPressable className={`active:opacity-20`}>
+            <SettingsIcon />
+          </StyledPressable>
+        </Link>
+      </View>
     </View>
-)
-}
+  );
+};
 
-export default Header
+export default Header;

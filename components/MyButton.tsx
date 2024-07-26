@@ -1,45 +1,89 @@
-import { useState,useEffect, useRef} from 'react';
-import { Text, Pressable,Animated } from 'react-native';
-import { TextProps } from 'react-native-elements';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import { Pressable, Animated, View, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styled } from 'nativewind';
-
+import { Link } from 'expo-router';
 
 type MyButtonProps = {
-    icon:string
-    color?: string
-    floating_text?: string
-    buttonStyle?: TextProps['style']
-}
-
-
-const MyButton = ({ buttonStyle, icon, color = 'grey', floating_text = 'Waiting for something to happen?' }:MyButtonProps) => {
-    const [isLongPressed, setIsLongPressed] = useState(false);
-    const [isPressedOut, setIsPressedOut] = useState(false);
-    const fadeAnim = useRef(new Animated.Value(0)).current; // Initial opacity is 0
-
-        useEffect(() => {
-            Animated.timing(fadeAnim, {
-                toValue: isLongPressed ? 1 : 0, // Fade in if true, else fade out
-                duration: 500*(isLongPressed?2:0.5), // Duration of the animation
-                useNativeDriver: true, // Use native driver for better performance
-            }).start();
-        }, [isLongPressed]);
-
-    return (
-        <Pressable style={buttonStyle}
-        onPressOut={() => {setIsLongPressed(false); setIsPressedOut(!isPressedOut)}}
-            onLongPress={() => setIsLongPressed(true)}>
-            <Icon name={icon} size={30} color={!isPressedOut?"grey":"orange"} />
-                <Animated.Text style={{ opacity: fadeAnim }} className="text-base text-gray-700">
-                    {floating_text}
-                </Animated.Text>
-        </Pressable>
-    );
+  icon: string;
+  floatingText?: string;
+  href?: string;
+  style?: ViewStyle;
+  onPress?: () => void;
 };
 
-export default styled(MyButton, {
-    props:{
-        buttonStyle:true
+const MyButton = forwardRef<View, MyButtonProps>(
+  (
+    {
+      icon,
+      floatingText = 'Waiting for something to happen?',
+      href,
+      style,
+      onPress,
+      ...props
+    },
+    ref
+  ) => {
+    const [isPressed, setIsPressed] = useState(false);
+    const [isLongPressed, setIsLongPressed] = useState(false);
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+      Animated.timing(fadeAnim, {
+        toValue: isLongPressed ? 1 : 0,
+        duration: isLongPressed ? 1000 : 250,
+        useNativeDriver: true,
+      }).start();
+    }, [isLongPressed]);
+
+    const handlePressIn = () => setIsPressed(true);
+    const handlePressOut = () => {
+      setIsPressed(false);
+      setIsLongPressed(false);
+      onPress?.();
+    };
+    const handleLongPress = () => setIsLongPressed(true);
+
+    const renderContent = () => (
+      <>
+        <Icon name={icon} size={30} color={isPressed ? "orange" : "grey"} />
+        <Animated.Text 
+          style={{ opacity: fadeAnim }} 
+          className="text-base text-gray-700"
+        >
+          {floatingText}
+        </Animated.Text>
+      </>
+    );
+
+    const pressableProps = {
+      style: [style, { opacity: isPressed ? 0.8 : 1 }],
+      onPressIn: handlePressIn,
+      onPressOut: handlePressOut,
+      onLongPress: handleLongPress,
+      ...props
+    };
+
+    if (href) {
+      return (
+        <Link href={href} asChild>
+          <Pressable {...pressableProps} ref={ref}>
+            {renderContent()}
+          </Pressable>
+        </Link>
+      );
     }
-})
+
+    return (
+      <Pressable {...pressableProps} ref={ref}>
+        {renderContent()}
+      </Pressable>
+    );
+  }
+);
+
+export default styled(MyButton, {
+  props: {
+    style: true,
+  },
+});
