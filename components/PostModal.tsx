@@ -6,6 +6,7 @@ import {
   Gesture,
   Directions,
 } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Post = {
   id: number;
@@ -25,18 +26,29 @@ const PostModal = ({ post }: { post: Post }) => {
     .onEnd(() => {
       setIsModalVisible(false);
     });
-
+  const insets = useSafeAreaInsets();
   return (
     <View>
       <Modal
         animationType="slide"
+        transparent
         visible={isModalVisible}
         onRequestClose={() => setIsModalVisible(false)}
-        presentationStyle="overFullScreen"
+        presentationStyle="overFullScreen" //only ios look android later
       >
         <GestureHandlerRootView>
           <GestureDetector gesture={swipeGesture}>
-            <View className="flex-1 justify-center items-center">
+            <View
+              className="flex-1 justify-center items-center"
+              style={{
+                marginTop: insets.top * 2,
+                borderRadius: 20,
+                shadowRadius: 10,
+                shadowOpacity: 0.3,
+                shadowColor: "black",
+                shadowOffset: { width: 0, height: 0 },
+              }}
+            >
               <Text>Post {post.id}</Text>
               <Pressable onPressOut={() => setIsModalVisible(false)}>
                 <Text>Close</Text>
