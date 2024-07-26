@@ -49,7 +49,8 @@ const HomeScreen = () => {
       id: 4,
       user: "@user4",
       title: "The Great Plotter",
-      description: "Who rises up from the place of nothing",
+      description:
+        "Who rises up from the place of nothing lorem ipsum dolor sit amet consectetur adipiscing elit",
       images: {
         url: [
           "https://steamuserimages-a.akamaihd.net/ugc/1796352800264815295/F70FC39CBEEC303C3B138FD253DEE23E320FBC2C/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
