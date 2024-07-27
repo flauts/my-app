@@ -1,5 +1,6 @@
 import Feather from "@expo/vector-icons/Feather";
 import { Link } from "expo-router";
+import { View, Text } from "react-native";
 
 export const HomeIcon = (props: any) => (
   <Feather name="home" size={24} color="black" {...props} />
@@ -35,4 +36,13 @@ export const LikeIcon = (props: any) => (
 
 export const MapIcon = (props: any) => (
   <Feather name="map" size={24} color="black" {...props} />
+);
+
+export const SalonIcon = ({ num }: { num: string }) => (
+  <View
+    style={{ width: 100, marginBottom: 15 }}
+    className="border-[2px] rounded-[10px] justify-center items-center bg-white shadow p-1"
+  >
+    <Text style={{ fontSize: 20 }}>{num}</Text>
+  </View>
 );

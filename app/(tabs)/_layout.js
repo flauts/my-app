@@ -17,6 +17,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="map"
         options={{
+          headerShown: true,
           title: "Map",
           tabBarIcon: MapIcon,
           tabBarActiveTintColor: "black",

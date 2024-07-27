@@ -46,7 +46,7 @@ export default function PostPreview({ post }: { post: Post }) {
           />
         )}
       />
-      <View className="flex-row justify-between mt-2 gap-x-2">
+      <View className="flex-row justify-between gap-x-5 px-3 pt-2 pb-3">
         <Pressable
           className="flex-col items-left flex-shrink"
           onPressOut={() => setIsModalVisible(!isModalVisible)}
@@ -76,9 +76,7 @@ export default function PostPreview({ post }: { post: Post }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-  },
+  container: {},
   page: {
     justifyContent: "center",
     alignItems: "center",

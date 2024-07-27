@@ -3,7 +3,6 @@ import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
 import PostPreview from "../components/PostPreview";
 import { FlatList } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
   const feed = [
@@ -87,8 +86,6 @@ const HomeScreen = () => {
       },
     },
   ];
-
-  const insets = useSafeAreaInsets();
 
   const header = () => {
     return (

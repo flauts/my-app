@@ -1,5 +1,5 @@
-import { View } from "react-native";
-
+import MapScreen from "../../screens/MapScreen";
+import SalonesScreen from "../../screens/SalonesScreen";
 export default function Index() {
-  return <View />;
+  return <SalonesScreen />;
 }
