@@ -1,48 +1,105 @@
-import Feather from "@expo/vector-icons/Feather";
+import React, { useState } from "react";
+import { View, TouchableOpacity, Text } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import { View, Text } from "react-native";
 
-export const HomeIcon = (props: any) => (
-  <Feather name="home" size={24} color="black" {...props} />
-);
+export const NotificationIcon = (props: any) => {
+  const [pressed, setPressed] = useState(false);
+  return (
+    <TouchableOpacity onPress={() => setPressed(!pressed)}>
+      <FontAwesome
+        name={pressed ? "bell" : "bell-o"}
+        size={24}
+        color="black"
+        {...props}
+      />
+    </TouchableOpacity>
+  );
+};
 
-export const SearchIcon = (props: any) => (
-  <Feather name="search" size={24} color="black" {...props} />
-);
+export const BookmarkIcon = () => {
+  const [pressed, setPressed] = useState(false);
+  return (
+    <TouchableOpacity onPress={() => setPressed(!pressed)}>
+      <FontAwesome
+        name={pressed ? "bookmark" : "bookmark-o"}
+        size={24}
+        color="black"
+      />
+    </TouchableOpacity>
+  );
+};
 
-export const UserIcon = (props: any) => (
-  <Feather name="user" size={24} color="black" {...props} />
-);
+export const ShareIcon = () => {
+  return (
+    <TouchableOpacity>
+      <FontAwesome name={"share-square-o"} size={24} color="black" />
+    </TouchableOpacity>
+  );
+};
+export const UserIcon = () => {
+  return (
+    <View>
+      <TouchableOpacity>
+        <FontAwesome name={"user"} size={24} color="black" />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
-export const SettingsIcon = (props: any) => (
-  <Feather name="settings" size={24} color="black" {...props} />
-);
+export const SettingsIcon = () => {
+  return (
+    <Link asChild href="/settings">
+      <TouchableOpacity>
+        <FontAwesome name="cog" size={24} color="black" />
+      </TouchableOpacity>
+    </Link>
+  );
+};
+export const LikeIcon = () => {
+  const [pressed, setPressed] = useState(false);
+  return (
+    <TouchableOpacity onPress={() => setPressed(!pressed)}>
+      <FontAwesome
+        name={pressed ? "arrow-circle-up" : "arrow-circle-o-up"}
+        size={24}
+        color="black"
+      />
+    </TouchableOpacity>
+  );
+};
 
-export const NotificationIcon = (props: any) => (
-  <Feather name="bell" size={24} color="black" {...props} />
-);
+export const SearchIcon = () => {
+  return <FontAwesome name="search" size={24} color="black" />;
+};
 
-export const BookmarkIcon = (props: any) => (
-  <Feather name="bookmark" size={24} color="black" {...props} />
-);
+export const MapIcon = () => {
+  return <FontAwesome name={"map-o"} size={24} color="black" />;
+};
 
-export const ShareIcon = (props: any) => (
-  <Feather name="share-2" size={24} color="black" {...props} />
-);
+export const SalonIcon = ({ num }: { num: string }) => {
+  const [pressed, setPressed] = useState(false);
+  return (
+    <TouchableOpacity onPress={() => setPressed(!pressed)}>
+      <View
+        style={{ width: 100, height: 50, marginBottom: 15 }}
+        className="border-[2px] rounded-[10px] justify-center items-center bg-white shadow p-1"
+      >
+        <FontAwesome
+          name="qrcode"
+          size={24}
+          color={pressed ? "blue" : "black"}
+        />
+        <Text>{num}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
-export const LikeIcon = (props: any) => (
-  <Feather name="user-check" size={24} color="black" {...props} />
-);
+export const ChatIcon = () => {
+  return <FontAwesome name="envelope-o" size={24} color="black" />;
+};
 
-export const MapIcon = (props: any) => (
-  <Feather name="map" size={24} color="black" {...props} />
-);
-
-export const SalonIcon = ({ num }: { num: string }) => (
-  <View
-    style={{ width: 100, height: 50, marginBottom: 15 }}
-    className="border-[2px] rounded-[10px] justify-center items-center bg-white shadow p-1"
-  >
-    <Text style={{ fontSize: 20 }}>{num}</Text>
-  </View>
-);
+export const HomeIcon = () => {
+  return <FontAwesome name="lemon-o" size={24} color="black" />;
+};

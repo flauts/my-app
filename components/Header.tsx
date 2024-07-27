@@ -9,18 +9,14 @@ const StyledPressable = styled(Pressable);
 const Header = () => {
   return (
     <View className="flex-row mx-3 my-4 justify-between">
-      <StyledPressable className={`active:opacity-50`}>
-        <UserIcon />
-      </StyledPressable>
-      <View className="flex-row gap-x-8">
-        <StyledPressable className={`active:opacity-50`}>
+      <UserIcon />
+      <View className="flex-row gap-x-4">
+        <View>
           <NotificationIcon />
-        </StyledPressable>
-        <Link asChild href="/settings">
-          <StyledPressable className={`active:opacity-50`}>
-            <SettingsIcon />
-          </StyledPressable>
-        </Link>
+        </View>
+        <View>
+          <SettingsIcon />
+        </View>
       </View>
     </View>
   );

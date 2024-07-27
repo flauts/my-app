@@ -31,7 +31,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get("window");
 export default function PostPreview({ post }: { post: Post }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList
         horizontal
         pagingEnabled
@@ -76,7 +76,6 @@ export default function PostPreview({ post }: { post: Post }) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
   page: {
     justifyContent: "center",
     alignItems: "center",

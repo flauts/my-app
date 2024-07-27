@@ -1,17 +1,18 @@
 import { Tabs } from "expo-router";
 import { View } from "react-native";
 
-import { HomeIcon, MapIcon } from "../../components/Icons";
+import { HomeIcon, MapIcon, ChatIcon } from "../../components/Icons";
 
 export default function TabsLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs
+      screenOptions={{ headerShown: false, tabBarActiveTintColor: "black" }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
           tabBarIcon: HomeIcon,
-          tabBarActiveTintColor: "black",
         }}
       />
       <Tabs.Screen
@@ -20,7 +21,14 @@ export default function TabsLayout() {
           headerShown: true,
           title: "Map",
           tabBarIcon: MapIcon,
-          tabBarActiveTintColor: "black",
+        }}
+      />
+      <Tabs.Screen
+        name="groups"
+        options={{
+          title: "Groups",
+          headerShown: true,
+          tabBarIcon: ChatIcon,
         }}
       />
     </Tabs>
