@@ -18,6 +18,6 @@ export const places = [
     longitude: -78.45253945017873,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
-    name: "School",
+    name: "UTEC",
   },
 ];

@@ -40,7 +40,7 @@ export const MapIcon = (props: any) => (
 
 export const SalonIcon = ({ num }: { num: string }) => (
   <View
-    style={{ width: 100, marginBottom: 15 }}
+    style={{ width: 100, height: 50, marginBottom: 15 }}
     className="border-[2px] rounded-[10px] justify-center items-center bg-white shadow p-1"
   >
     <Text style={{ fontSize: 20 }}>{num}</Text>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import { useNavigation } from "expo-router";
+import { useNavigation, Link } from "expo-router";
 import { places } from "../assets/places";
 
 export default function MapScreen() {
@@ -26,12 +26,24 @@ export default function MapScreen() {
       longitudeDelta: 0.0421,
     });
   };
-  //ios only implementation not checked android
+  //ios only implementation havent checked android
   return (
     <View style={styles.container}>
       <MapView style={styles.map} ref={mapRef}>
         {places.map((place, index) => (
-          <Marker key={index} coordinate={place} title={place.name} />
+          <Marker key={index} coordinate={place} title={place.name}>
+            {place.name === "UTEC" ? (
+              <Callout>
+                <Link asChild href="/salones">
+                  <Text>{place.name}</Text>
+                </Link>
+              </Callout>
+            ) : (
+              <Callout>
+                <Text>{place.name}</Text>
+              </Callout>
+            )}
+          </Marker>
         ))}
       </MapView>
     </View>
