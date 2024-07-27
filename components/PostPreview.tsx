@@ -26,6 +26,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function PostPreview({ post }: { post: Post }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <View>
       <FlatList
