@@ -37,11 +37,14 @@ const PostModal = ({ post }: { post: Post }) => {
         presentationStyle="overFullScreen" //only ios look android later
       >
         <GestureHandlerRootView>
+          <Pressable
+            onPress={() => setIsModalVisible(false)}
+            style={{ height: insets.top * 2 }}
+          ></Pressable>
           <GestureDetector gesture={swipeGesture}>
             <View
-              className="flex-1 justify-center items-center"
+              className="flex-1 justify-center items-center bg-white"
               style={{
-                marginTop: insets.top * 2,
                 borderRadius: 20,
                 shadowRadius: 10,
                 shadowOpacity: 0.3,

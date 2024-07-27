@@ -32,3 +32,7 @@ export const ShareIcon = (props: any) => (
 export const LikeIcon = (props: any) => (
   <Feather name="user-check" size={24} color="black" {...props} />
 );
+
+export const MapIcon = (props: any) => (
+  <Feather name="map" size={24} color="black" {...props} />
+);
