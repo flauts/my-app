@@ -54,7 +54,9 @@ const PostModal = ({ post }: { post: Post }) => {
             >
               <Text>Post {post.id}</Text>
               <Pressable onPressOut={() => setIsModalVisible(false)}>
-                <Text>Close</Text>
+                <Text>Images here</Text>
+                <Text>{post.title}</Text>
+                <Text>{post.description}</Text>
               </Pressable>
             </View>
           </GestureDetector>

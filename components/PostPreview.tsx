@@ -1,18 +1,12 @@
 import { styled } from "nativewind";
 import { useState } from "react";
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { FlatList } from "react-native";
 import { BookmarkIcon, LikeIcon, ShareIcon } from "./Icons";
 import { Link } from "expo-router";
 import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
 import PostModal from "./PostModal";
+import { Image } from "expo-image";
 
 type Post = {
   id: number;
@@ -25,6 +19,8 @@ type Post = {
 };
 
 const StyledPressable = styled(Pressable);
+const blurhash =
+  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -40,9 +36,12 @@ export default function PostPreview({ post }: { post: Post }) {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <Image
-            resizeMode="cover"
-            source={{ uri: item }}
+            contentFit="cover"
+            cachePolicy={"memory"}
+            source={item}
             style={styles.image}
+            transition={1000}
+            placeholder={{ blurhash }}
           />
         )}
       />
