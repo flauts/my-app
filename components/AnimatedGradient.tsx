@@ -12,7 +12,7 @@ const GRADIENT_COLORS = [
 ];
 
 const MOVEMENT = 0.0005; // Small value for smooth animation
-const FADE_IN_DURATION = 3000; // 3 seconds fade-in
+const FADE_IN_DURATION = 2000;
 
 function interpolateColor(
   color1: string,
@@ -87,9 +87,7 @@ export default function AnimatedGradient() {
           colors={gradientColors}
           start={{ x: 0.5, y: 0 }}
           end={{ x: 0.5, y: 1 }}
-        >
-          <StatusBar style="auto" />
-        </LinearGradient>
+        ></LinearGradient>
       </Animated.View>
     </View>
   );

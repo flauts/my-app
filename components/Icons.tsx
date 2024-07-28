@@ -40,9 +40,11 @@ export const ShareIcon = () => {
 export const UserIcon = () => {
   return (
     <View>
-      <TouchableOpacity>
-        <FontAwesome name={"user"} size={24} color="black" />
-      </TouchableOpacity>
+      <Link asChild href={"/profile"}>
+        <TouchableOpacity>
+          <FontAwesome name={"user"} size={24} color="black" />
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };
