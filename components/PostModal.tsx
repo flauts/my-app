@@ -17,6 +17,8 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import { Animated } from "react-native-maps";
+import AnimatedGradient from "./AnimatedGradient";
 
 type Post = {
   id: number;
@@ -67,13 +69,7 @@ const PostModal = ({ post }: { post: Post }) => {
                 shadowOffset: { width: 0, height: 0 },
               }}
             >
-              <LinearGradient
-                // Background Linear Gradient
-                colors={["rgba(104,205,200,0.4)", "transparent"]}
-                start={[0, 1]}
-                end={[1, 0]}
-                style={styles.gradient}
-              />
+              <AnimatedGradient />
               <View style={styles.carousel}>
                 <FlatList
                   nestedScrollEnabled
@@ -107,7 +103,7 @@ const PostModal = ({ post }: { post: Post }) => {
 
 const styles = StyleSheet.create({
   carousel: {
-    height: 300,
+    height: 350,
   },
   image: {
     width: SCREEN_WIDTH,
@@ -118,13 +114,6 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 20,
-  },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: SCREEN_HEIGHT,
   },
 });
 
