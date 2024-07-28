@@ -3,13 +3,7 @@ import { StyleSheet, View, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef } from "react";
 
-const GRADIENT_COLORS = [
-  "#FF9A8B", // Light Salmon
-  "#FF6B6B", // Coral
-  "#4ECDC4", // Medium Turquoise
-  "#45B7D1", // Sky Blue
-  "#6A5ACD", // Slate Blue
-];
+const GRADIENT_COLORS = ["#FDC830", "#F37335", "#FDC830", "#F37335", "#FDC830"];
 
 const MOVEMENT = 0.0005; // Small value for smooth animation
 const FADE_IN_DURATION = 2000;

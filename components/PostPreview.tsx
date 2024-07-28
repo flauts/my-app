@@ -59,15 +59,15 @@ export default function PostPreview({ post }: { post: Post }) {
           </Text>
         </Pressable>
         <View className="flex-row gap-x-4">
-          <StyledPressable className={`active:opacity-50`}>
+          <View>
             <LikeIcon />
-          </StyledPressable>
-          <StyledPressable className={`active:opacity-50`}>
+          </View>
+          <View>
             <ShareIcon />
-          </StyledPressable>
-          <StyledPressable className={`active:opacity-50`}>
+          </View>
+          <View>
             <BookmarkIcon />
-          </StyledPressable>
+          </View>
         </View>
       </View>
       {isModalVisible && <PostModal post={post} />}

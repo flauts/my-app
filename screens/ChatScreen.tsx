@@ -2,40 +2,37 @@ import React, { useState, useCallback, useEffect } from "react";
 import { View } from "react-native";
 import { Image } from "expo-image";
 import { Bubble, GiftedChat, IMessage, Avatar } from "react-native-gifted-chat";
+import WebSocketClient from "../service/WebSocketClient";
 
-export default function ChatScreen() {
+export default function ChatScreen({ name }: { name: string }) {
   const [messages, setMessages] = useState<IMessage[]>([]);
 
+  const onSend = (newMessages: IMessage[]) => {
+    WebSocketClient.send(newMessages[0]);
+  };
+
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5jTKo4WuNTHYrShmskUJXipMid-jcnrAfAQ&s",
-        },
-      },
-    ]);
+    return () => WebSocketClient.close();
   }, []);
 
-  const onSend = useCallback((newMessages: IMessage[]) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, newMessages)
-    );
-  }, []);
+  useEffect(() => {
+    WebSocketClient.onReceiveMessage = (newMessage: IMessage[]) => {
+      setMessages(GiftedChat.append(messages, newMessage));
+    };
+  }, [messages]);
 
+  const user = {
+    _id: name,
+    name,
+    avatar:
+      "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png",
+  };
   return (
     <GiftedChat
       bottomOffset={80}
+      user={user}
       messages={messages}
       onSend={(messages) => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
       renderBubble={(props) => {
         return (
           <Bubble

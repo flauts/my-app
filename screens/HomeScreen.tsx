@@ -89,7 +89,7 @@ const HomeScreen = () => {
 
   const header = () => {
     return (
-      <View className="pb-4 bg-white">
+      <View className="pb-4">
         <Header />
         <SearchBar />
       </View>
