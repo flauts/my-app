@@ -105,3 +105,11 @@ export const ChatIcon = () => {
 export const HomeIcon = () => {
   return <FontAwesome name="lemon-o" size={24} color="black" />;
 };
+
+export const CloseIcon = () => {
+  return <FontAwesome name="close" size={24} color="black" />;
+};
+
+export const CommentIcon = () => {
+  return <FontAwesome name="comment" size={24} color="black" />;
+};

@@ -7,6 +7,8 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import {
   GestureHandlerRootView,
@@ -16,9 +18,8 @@ import {
 } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
-import { Animated } from "react-native-maps";
 import AnimatedGradient from "./AnimatedGradient";
+import { CloseIcon, CommentIcon } from "./Icons";
 
 type Post = {
   id: number;
@@ -43,7 +44,9 @@ const PostModal = ({ post }: { post: Post }) => {
     .onEnd(() => {
       setIsModalVisible(false);
     });
+
   const insets = useSafeAreaInsets();
+
   return (
     <View>
       <Modal
@@ -57,45 +60,81 @@ const PostModal = ({ post }: { post: Post }) => {
           onPress={() => setIsModalVisible(false)}
           style={{ height: insets.top * 2 }}
         ></Pressable>
-        <GestureHandlerRootView>
-          <GestureDetector gesture={swipeGesture}>
-            <View
-              className="flex-1 bg-white"
-              style={{
-                borderRadius: 20,
-                shadowRadius: 10,
-                shadowOpacity: 0.5,
-                shadowColor: "black",
-                shadowOffset: { width: 0, height: 0 },
-              }}
-            >
-              <AnimatedGradient />
-              <View style={styles.carousel}>
-                <FlatList
-                  nestedScrollEnabled
-                  horizontal
-                  pagingEnabled
-                  showsHorizontalScrollIndicator
-                  data={post.images.url}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <Image
-                      cachePolicy="memory"
-                      source={item}
-                      style={styles.image}
-                      transition={1000}
-                      placeholder={{ blurhash }}
-                    />
-                  )}
-                />
-              </View>
-              <View>
-                <Text style={styles.title}>{post.title}</Text>
-                <Text style={styles.description}>{post.description}</Text>
-              </View>
+        <View
+          className="flex-1 bg-white"
+          style={{
+            borderRadius: 20,
+            shadowRadius: 10,
+            shadowOpacity: 0.5,
+            shadowColor: "black",
+            shadowOffset: { width: 0, height: 0 },
+            paddingBottom: insets.bottom,
+          }}
+        >
+          <AnimatedGradient />
+          <ScrollView>
+            <View style={styles.carousel}>
+              <FlatList
+                nestedScrollEnabled
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator
+                data={post.images.url}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                  <Image
+                    cachePolicy="memory"
+                    source={item}
+                    style={styles.image}
+                    transition={1000}
+                    placeholder={{ blurhash }}
+                  />
+                )}
+              />
             </View>
-          </GestureDetector>
-        </GestureHandlerRootView>
+            <View className="p-4">
+              <Text className="mb-4" style={styles.title}>
+                {post.title}
+              </Text>
+              <Text style={styles.description}>
+                {post.description} Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Reprehenderit veniam voluptatem aspernatur ad
+                sint voluptate, tempora nostrum similique hic doloribus!
+                Provident necessitatibus maiores quam neque inventore rerum eos
+                quae eveniet. Lorem ipsum dolor, sit amet consectetur
+                adipisicing elit. Illum voluptates praesentium corporis,
+                repellendus placeat veniam libero tenetur recusandae assumenda,
+                provident nobis. Laborum expedita omnis delectus fugiat nam quae
+                consectetur quaerat. Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Quibusdam ut nesciunt fugiat recusandae
+                aperiam, est maiores illum nisi assumenda corporis dicta esse
+                possimus error laudantium repellat aliquid culpa repellendus
+                officiis.
+              </Text>
+            </View>
+            <View style={{ height: insets.bottom }}></View>
+            {/* empty for space for buttons not obstruct text */}
+          </ScrollView>
+          <View className="absolute bottom-5 flex-row justify-between px-5">
+            <View className="flex-1">
+              <TouchableOpacity
+                activeOpacity={0.85}
+                className="rounded-full bg-blue-300 p-4 self-start"
+                onPress={() => setIsModalVisible(false)}
+              >
+                <CloseIcon />
+              </TouchableOpacity>
+            </View>
+            <View className="flex-1">
+              <TouchableOpacity
+                activeOpacity={0.85}
+                className="rounded-full bg-blue-300 p-4 self-end"
+              >
+                <CommentIcon />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       </Modal>
     </View>
   );
