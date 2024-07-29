@@ -94,14 +94,6 @@ const HomeScreen = () => {
     updatePosts(feed);
   }, []);
 
-  const header = () => {
-    return (
-      <View className="pb-4">
-        <Header />
-        <SearchBar />
-      </View>
-    );
-  };
   const footer = () => {
     return (
       <View className="items-center">
@@ -113,7 +105,6 @@ const HomeScreen = () => {
     <View>
       <FlatList
         nestedScrollEnabled
-        ListHeaderComponent={header}
         ListFooterComponent={footer}
         ListFooterComponentStyle={{ paddingBottom: 15 }}
         data={feed}
