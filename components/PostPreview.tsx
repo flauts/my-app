@@ -25,8 +25,6 @@ const blurhash =
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function PostPreview({ post }: { post: Post }) {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   return (
     <View>
       <FlatList
@@ -47,17 +45,16 @@ export default function PostPreview({ post }: { post: Post }) {
         )}
       />
       <View className="flex-row justify-between gap-x-5 px-3 pt-2 pb-3">
-        <Pressable
-          className="flex-col items-left flex-shrink"
-          onPressOut={() => setIsModalVisible(!isModalVisible)}
-        >
-          <Text className="text-justify" style={styles.title}>
-            {post.title}
-          </Text>
-          <Text className="text-justify" style={styles.description}>
-            {post.description.slice(0, 100)}...
-          </Text>
-        </Pressable>
+        <Link asChild href={`post/${post.id}`}>
+          <Pressable className="flex-col items-left flex-shrink">
+            <Text className="text-justify" style={styles.title}>
+              {post.title}
+            </Text>
+            <Text className="text-justify" style={styles.description}>
+              {post.description.slice(0, 100)}...
+            </Text>
+          </Pressable>
+        </Link>
         <View className="flex-row gap-x-4">
           <View>
             <LikeIcon />
@@ -70,7 +67,6 @@ export default function PostPreview({ post }: { post: Post }) {
           </View>
         </View>
       </View>
-      {isModalVisible && <PostModal post={post} />}
     </View>
   );
 }

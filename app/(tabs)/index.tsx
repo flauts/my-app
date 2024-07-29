@@ -8,7 +8,6 @@ export default function Index() {
   const insets = useSafeAreaInsets();
   return (
     <View style={{ paddingTop: insets.top }}>
-      {/* <AnimatedGradient /> */}
       <HomeScreen />
     </View>
   );

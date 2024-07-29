@@ -3,6 +3,8 @@ import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
 import PostPreview from "../components/PostPreview";
 import { FlatList } from "react-native";
+import { usePostContext } from "../context/PostContext";
+import { useEffect } from "react";
 
 const HomeScreen = () => {
   const feed = [
@@ -86,6 +88,11 @@ const HomeScreen = () => {
       },
     },
   ];
+  const { updatePosts } = usePostContext();
+
+  useEffect(() => {
+    updatePosts(feed);
+  }, []);
 
   const header = () => {
     return (
