@@ -3,7 +3,7 @@ import React from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const index = () => {
+const Index = () => {
   const insets = useSafeAreaInsets();
   return (
     <View style={{ paddingBottom: insets.bottom }}>
@@ -12,4 +12,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

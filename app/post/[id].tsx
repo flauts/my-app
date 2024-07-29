@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import { useLocalSearchParams, Link } from "expo-router";
+
 const Post = () => {
   const { id } = useLocalSearchParams();
   return (
