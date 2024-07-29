@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, StyleSheet, TextInput, View } from "react-native";
 import ChatScreen from "./ChatScreen";
 
-const App = () => {
+const GroupScreen = () => {
   const [name, setName] = useState("");
   const [isEnter, setIsEnter] = useState(false);
 
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default GroupScreen;

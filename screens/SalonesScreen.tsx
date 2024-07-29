@@ -20,6 +20,7 @@ export default function SalonesScreen() {
           headerShown: true,
           headerTitle: "Salones",
           headerBackTitleVisible: false,
+          animation: "slide_from_bottom",
         }}
       />
       <ScrollView className="pt-4">
