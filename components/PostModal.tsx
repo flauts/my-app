@@ -10,16 +10,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import {
-  GestureHandlerRootView,
-  GestureDetector,
-  Gesture,
-  Directions,
-} from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import AnimatedGradient from "./AnimatedGradient";
 import { CloseIcon, CommentIcon } from "./Icons";
+import CommentModal from "./CommentModal";
 
 type Post = {
   id: number;
@@ -31,19 +26,14 @@ type Post = {
   };
 };
 
+const blurhash =
+  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
+
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const PostModal = ({ post }: { post: Post }) => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
-  const blurhash =
-    "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
-
-  const swipeGesture = Gesture.Fling()
-    .direction(Directions.DOWN)
-    .onEnd(() => {
-      setIsModalVisible(false);
-    });
+const PostModal = ({ post, onClose }: { post: Post; onClose: () => void }) => {
+  const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
   const insets = useSafeAreaInsets();
 
@@ -52,12 +42,12 @@ const PostModal = ({ post }: { post: Post }) => {
       <Modal
         animationType="slide"
         transparent
-        visible={isModalVisible}
-        onRequestClose={() => setIsModalVisible(false)}
+        visible={true}
+        onRequestClose={onClose}
         presentationStyle="overFullScreen" //only ios look android later
       >
         <Pressable
-          onPress={() => setIsModalVisible(false)}
+          onPress={onClose}
           style={{ height: insets.top * 2 }}
         ></Pressable>
         <View
@@ -120,7 +110,7 @@ const PostModal = ({ post }: { post: Post }) => {
               <TouchableOpacity
                 activeOpacity={0.85}
                 className="rounded-full bg-blue-300 p-4 self-start"
-                onPress={() => setIsModalVisible(false)}
+                onPress={onClose}
               >
                 <CloseIcon />
               </TouchableOpacity>
@@ -129,11 +119,18 @@ const PostModal = ({ post }: { post: Post }) => {
               <TouchableOpacity
                 activeOpacity={0.85}
                 className="rounded-full bg-blue-300 p-4 self-end"
+                onPress={() => setIsCommentsVisible(!isCommentsVisible)}
               >
                 <CommentIcon />
               </TouchableOpacity>
             </View>
           </View>
+          {isCommentsVisible && (
+            <CommentModal
+              post_id={post.id}
+              onClose={() => setIsCommentsVisible(false)}
+            />
+          )}
         </View>
       </Modal>
     </View>
