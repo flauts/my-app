@@ -1,3 +1,100 @@
+// import {
+//   View,
+//   Text,
+//   ScrollView,
+//   FlatList,
+//   TouchableOpacity,
+// } from "react-native";
+// import React, { useCallback, useMemo, useState } from "react";
+// import BottomSheet, {
+//   BottomSheetBackdrop,
+//   BottomSheetModal,
+// } from "@gorhom/bottom-sheet";
+// import { useSafeAreaInsets } from "react-native-safe-area-context";
+// import AnimatedGradient from "../../components/AnimatedGradient";
+// import CommentModal_Deprecated from "../../components/CommentModal_Deprecated";
+// import { Image } from "expo-image";
+// import { CloseIcon, CommentIcon } from "../../components/Icons";
+// import { Button } from "react-native-elements";
+// import CustomBackdrop from "../../components/CustomBackdrop";
+
+// type Post = {
+//   id: number;
+//   user: string;
+//   title: string;
+//   description: string;
+//   images: {
+//     url: string[];
+//   };
+// };
+
+// const blurhash =
+//   "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
+
+// export default function Index() {
+//   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+//   const post = {
+//     id: 1,
+//     user: "@user1",
+//     title: "Secretive Plotter",
+//     description: "Who rises up from the place of nothing",
+//     images: {
+//       url: [
+//         "https://steamuserimages-a.akamaihd.net/ugc/1796352800264815295/F70FC39CBEEC303C3B138FD253DEE23E320FBC2C/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+//         "https://i.pinimg.com/736x/a6/fc/1c/a6fc1ce13c67b789d94e6c84fd74e448.jpg",
+//         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD4SBpv0LNSlva5oaHcfT2AHpRrJvP8rRiEA&s",
+//       ],
+//     },
+//   };
+//   const snapPoints = useMemo(() => ["50%", "90%"], []);
+//   const insets = useSafeAreaInsets();
+//   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
+//   const handleOpen = () => {
+//     bottomSheetRef.current?.present();
+//   };
+//   const handleClose = () => {
+//     bottomSheetRef.current?.dismiss();
+//   };
+
+//   const renderBackdrop = useCallback(
+//     (props: any) => (
+//       <BottomSheetBackdrop
+//         appearsOnIndex={[0, 1]}
+//         disappearsOnIndex={-1}
+//         {...props}
+//         enableTouchThrough={false}
+//       />
+//     ),
+//     []
+//   );
+//   return (
+//     <View className="flex-1 pt-24">
+//       <Button title="Open" onPress={handleOpen} />
+//       <View
+//         className="flex-1"
+//         style={{
+//           shadowOpacity: 0.8,
+//           shadowRadius: 10,
+//           shadowOffset: { width: 0, height: 0 },
+//         }}
+//       >
+//         <BottomSheetModal
+//           ref={bottomSheetRef}
+//           snapPoints={snapPoints}
+//           backgroundComponent={() => <AnimatedGradient mode={8} />}
+//           backdropComponent={CustomBackdrop}
+//           index={0}
+//           enablePanDownToClose
+//         >
+//           <View>
+//             <Text>AAAAAAAAAAAA</Text>
+//           </View>
+//         </BottomSheetModal>
+//       </View>
+//     </View>
+//   );
+// }
+
 import {
   View,
   Text,
@@ -5,7 +102,6 @@ import {
   Pressable,
   Dimensions,
   ScrollView,
-  TextInput,
 } from "react-native";
 import React, {
   forwardRef,
@@ -25,12 +121,9 @@ import BottomSheet, {
   SCREEN_HEIGHT,
 } from "@gorhom/bottom-sheet";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AnimatedGradient from "./AnimatedGradient";
-import CommentModal_Deprecated from "./CommentModal_Deprecated";
 import { Image } from "expo-image";
-import { CloseIcon, CommentIcon } from "./Icons";
-import CustomBackdrop from "./CustomBackdrop";
-import { FlatList } from "react-native-gesture-handler";
+import { CloseIcon, CommentIcon } from "../../components/Icons";
+import { FlatList, TextInput } from "react-native-gesture-handler";
 import { Button } from "react-native-elements/dist/buttons/Button";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -173,21 +266,8 @@ const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <BottomSheetModal
-      stackBehavior="push"
-      snapPoints={snapPoints}
-      ref={ref}
-      backdropComponent={renderBackdrop}
-      index={0}
-      style={{
-        shadowColor: "black",
-        shadowOpacity: 0.5,
-        shadowRadius: 20,
-      }}
-      //   backgroundStyle={{ backgroundColor: "blue" }}
-      //   backgroundComponent={() => <AnimatedGradient mode={8} />}
-    >
-      <BottomSheetFlatList
+    <View style={{ paddingTop: insets.top }}>
+      <FlatList
         showsVerticalScrollIndicator
         keyExtractor={(item, index) => index.toString()}
         data={comments}
@@ -200,13 +280,13 @@ const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
           </View>
         )}
         ListHeaderComponent={() => (
-          <View className="p-4 bg-red-100">
-            <BottomSheetTextInput placeholder="Add a comment..." />
+          <View className="p-4 bg-red-300">
+            <TextInput placeholder="Add a comment..." />
           </View>
         )}
         stickyHeaderIndices={[0]}
       />
-    </BottomSheetModal>
+    </View>
   );
 });
 

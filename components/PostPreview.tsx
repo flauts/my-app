@@ -1,12 +1,13 @@
 import { styled } from "nativewind";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { FlatList } from "react-native";
 import { BookmarkIcon, LikeIcon, ShareIcon } from "./Icons";
 import { Link } from "expo-router";
 import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
-import PostModal from "./PostModal";
 import { Image } from "expo-image";
+import PostModal from "./PostModal";
+import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 type Post = {
   id: number;
@@ -18,14 +19,14 @@ type Post = {
   };
 };
 
-const StyledPressable = styled(Pressable);
 const blurhash =
   "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function PostPreview({ post }: { post: Post }) {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalRef = useRef<BottomSheetModal>(null);
+
   return (
     <View>
       <FlatList
@@ -48,7 +49,7 @@ export default function PostPreview({ post }: { post: Post }) {
       <View className="flex-row justify-between gap-x-5 px-3 pt-2 pb-3">
         <Pressable
           className="flex-col items-left flex-shrink"
-          onPressOut={() => setIsModalVisible(!isModalVisible)}
+          onPressOut={() => modalRef.current?.present()}
         >
           <Text className="text-justify" style={styles.title}>
             {post.title}
@@ -69,9 +70,7 @@ export default function PostPreview({ post }: { post: Post }) {
           </View>
         </View>
       </View>
-      {isModalVisible && (
-        <PostModal post={post} onClose={() => setIsModalVisible(false)} />
-      )}
+      <PostModal {...post} ref={modalRef} />
     </View>
   );
 }

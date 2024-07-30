@@ -104,10 +104,14 @@ export default function AnimatedGradient({ mode }: { mode: number }) {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
+    shadowColor: "#000",
+    borderRadius: 20,
+    backgroundColor: "white",
   },
   gradient: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 15,
   },
 });
