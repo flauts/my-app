@@ -61,7 +61,7 @@ const PostModal = ({ post, onClose }: { post: Post; onClose: () => void }) => {
             paddingBottom: insets.bottom,
           }}
         >
-          <AnimatedGradient />
+          <AnimatedGradient mode={8} />
           <ScrollView>
             <View style={styles.carousel}>
               <FlatList

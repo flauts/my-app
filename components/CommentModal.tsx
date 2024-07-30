@@ -1,7 +1,8 @@
-import { View, Text, Dimensions, Pressable } from "react-native";
+import { View, Text, Dimensions, Pressable, FlatList } from "react-native";
 import React, { useState } from "react";
 import { Modal } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AnimatedGradient from "./AnimatedGradient";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("screen");
 
@@ -28,14 +29,18 @@ const CommentModal = ({
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "red",
+            backgroundColor: "white",
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             paddingTop: 20,
             paddingHorizontal: 16,
+            shadowRadius: 20,
+            shadowOpacity: 0.5,
+            shadowColor: "black",
+            shadowOffset: { width: 0, height: 0 },
           }}
         >
-          <Text>AAAAAAAAAAAAAAAAAA</Text>
+          <AnimatedGradient mode={1} />
         </View>
       </View>
     </Modal>

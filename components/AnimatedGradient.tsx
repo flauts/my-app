@@ -3,10 +3,21 @@ import { StyleSheet, View, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef } from "react";
 
-const GRADIENT_COLORS = ["#FDC830", "#F37335", "#FDC830", "#F37335", "#FDC830"];
+const GRADIENT_COLORS_LIST = [
+  ["#FF9A9E", "#FAD0C4", "#FFC3A0", "#FFAFBD", "#FF9A9E"],
+  ["#48c6ef", "#6f86d6", "#48c6ef", "#6f86d6", "#48c6ef"],
+  ["#76b852", "#8DC26F", "#a8e063", "#76b852", "#8DC26F"],
+  ["#E3E3E3", "#C7C7C7", "#BDBDBD", "#C7C7C7", "#E3E3E3"],
+  ["#3a1c71", "#d76d77", "#ffaf7b", "#d76d77", "#3a1c71"],
+  ["#FDC830", "#F37335", "#FDC830", "#F37335", "#FDC830"],
+  ["#8E2DE2", "#4A00E0", "#8E2DE2", "#4A00E0", "#8E2DE2"],
+  ["#ffecd2", "#fcb69f", "#ffecd2", "#fcb69f", "#ffecd2"],
+  ["#4776E6", "#8E54E9", "#4776E6", "#8E54E9", "#4776E6"],
+  ["#DAD299", "#B0DAB9", "#DAD299", "#B0DAB9", "#DAD299"],
+];
 
 const MOVEMENT = 0.0005; // Small value for smooth animation
-const FADE_IN_DURATION = 2000;
+const FADE_IN_DURATION = 700;
 
 function interpolateColor(
   color1: string,
@@ -28,8 +39,11 @@ function interpolateColor(
   return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 }
 
-export default function AnimatedGradient() {
-  const [gradientColors, setGradientColors] = React.useState(GRADIENT_COLORS);
+export default function AnimatedGradient({ mode }: { mode: number }) {
+  const [gradientColors, setGradientColors] = React.useState(
+    GRADIENT_COLORS_LIST[mode]
+  );
+  const GRADIENT_COLORS = GRADIENT_COLORS_LIST[mode];
   const offsetRef = useRef(0);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
