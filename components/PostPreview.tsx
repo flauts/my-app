@@ -1,13 +1,13 @@
-import { styled } from "nativewind";
-import { useRef, useState } from "react";
+import { useRef, useState, lazy, Suspense, memo } from "react";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { FlatList } from "react-native";
 import { BookmarkIcon, LikeIcon, ShareIcon } from "./Icons";
-import { Link } from "expo-router";
-import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
 import { Image } from "expo-image";
-import PostModal from "./PostModal";
 import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
+
+// const PostModal = lazy(() => import("./PostModal"));
+
+import PostModal from "./PostModal";
 
 type Post = {
   id: number;
@@ -24,7 +24,8 @@ const blurhash =
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
-export default function PostPreview({ post }: { post: Post }) {
+const PostPreview = ({ post }: { post: Post }) => {
+  console.log("post preview rendered");
   const modalRef = useRef<BottomSheetModal>(null);
 
   return (
@@ -33,6 +34,11 @@ export default function PostPreview({ post }: { post: Post }) {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator
+        getItemLayout={(data, index) => ({
+          length: SCREEN_WIDTH,
+          offset: SCREEN_WIDTH * index,
+          index,
+        })}
         data={post.images.url}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
@@ -70,10 +76,13 @@ export default function PostPreview({ post }: { post: Post }) {
           </View>
         </View>
       </View>
+
       <PostModal {...post} ref={modalRef} />
     </View>
   );
-}
+};
+
+export default PostPreview;
 
 const styles = StyleSheet.create({
   page: {

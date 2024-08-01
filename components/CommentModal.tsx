@@ -28,7 +28,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AnimatedGradient from "./AnimatedGradient";
 import CommentModal_Deprecated from "./CommentModal_Deprecated";
 import { Image } from "expo-image";
-import { CloseIcon, CommentIcon } from "./Icons";
+import { CloseIcon, CommentIcon, PostIcon } from "./Icons";
 import CustomBackdrop from "./CustomBackdrop";
 import { FlatList } from "react-native-gesture-handler";
 import { Button } from "react-native-elements/dist/buttons/Button";
@@ -157,6 +157,8 @@ const blurhash =
   "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
+  console.log("comment modal rendered");
+  const ref1 = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["50%", "88%"], []);
 
   const renderBackdrop = useCallback(
@@ -164,7 +166,6 @@ const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
       <BottomSheetBackdrop
         appearsOnIndex={1}
         disappearsOnIndex={-1}
-        enableTouchThrough={false}
         {...props}
       />
     ),
@@ -176,7 +177,7 @@ const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
     <BottomSheetModal
       stackBehavior="push"
       snapPoints={snapPoints}
-      ref={ref}
+      ref={ref1}
       backdropComponent={renderBackdrop}
       index={0}
       style={{
@@ -200,8 +201,16 @@ const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
           </View>
         )}
         ListHeaderComponent={() => (
-          <View className="p-4 bg-red-100">
-            <BottomSheetTextInput placeholder="Add a comment..." />
+          <View className="p-4 bg-red-100 flex-row justify-between ">
+            <TextInput
+              className="flex-1"
+              multiline
+              maxLength={200}
+              placeholder="Add a comment..."
+            />
+            <TouchableOpacity className="mx-2">
+              <PostIcon />
+            </TouchableOpacity>
           </View>
         )}
         stickyHeaderIndices={[0]}

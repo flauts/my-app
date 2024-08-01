@@ -113,3 +113,7 @@ export const CloseIcon = () => {
 export const CommentIcon = () => {
   return <FontAwesome name="comment" size={24} color="black" />;
 };
+
+export const PostIcon = () => {
+  return <FontAwesome name="plus" size={24} color="black" />;
+};

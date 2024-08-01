@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 import { HomeIcon, MapIcon, ChatIcon } from "../../components/Icons";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
@@ -28,8 +28,6 @@ export default function TabsLayout() {
         <Tabs.Screen
           name="groups"
           options={{
-            title: "Groups",
-            headerShown: true,
             tabBarIcon: ChatIcon,
           }}
         />
