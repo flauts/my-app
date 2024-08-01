@@ -2,36 +2,17 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Pressable,
   Dimensions,
-  ScrollView,
   TextInput,
 } from "react-native";
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import BottomSheet, {
+import React, { forwardRef, useCallback, useMemo } from "react";
+import {
   BottomSheetBackdrop,
   BottomSheetFlatList,
   BottomSheetModal,
-  BottomSheetScrollView,
-  BottomSheetTextInput,
-  BottomSheetView,
-  SCREEN_HEIGHT,
 } from "@gorhom/bottom-sheet";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AnimatedGradient from "./AnimatedGradient";
-import CommentModal_Deprecated from "./CommentModal_Deprecated";
-import { Image } from "expo-image";
-import { CloseIcon, CommentIcon, PostIcon } from "./Icons";
-import CustomBackdrop from "./CustomBackdrop";
-import { FlatList } from "react-native-gesture-handler";
-import { Button } from "react-native-elements/dist/buttons/Button";
+import { PostIcon } from "./Icons";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -158,7 +139,6 @@ const blurhash =
 
 const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
   console.log("comment modal rendered");
-  const ref1 = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["50%", "88%"], []);
 
   const renderBackdrop = useCallback(
@@ -177,7 +157,7 @@ const CommentModal = forwardRef<Ref, CommentProps>((post_id, ref) => {
     <BottomSheetModal
       stackBehavior="push"
       snapPoints={snapPoints}
-      ref={ref1}
+      ref={ref}
       backdropComponent={renderBackdrop}
       index={0}
       style={{

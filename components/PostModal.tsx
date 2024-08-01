@@ -2,8 +2,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Pressable,
   Dimensions,
+  FlatList,
 } from "react-native";
 import React, { forwardRef, useCallback, useMemo, useRef, memo } from "react";
 import {
@@ -14,7 +14,6 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { CommentIcon, LikeIcon } from "./Icons";
-import { FlatList } from "react-native-gesture-handler";
 
 // const CommentModal = lazy(() => import("./CommentModal"));
 import CommentModal from "./CommentModal";

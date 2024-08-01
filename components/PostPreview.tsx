@@ -1,9 +1,9 @@
-import { useRef, useState, lazy, Suspense, memo } from "react";
+import { useRef } from "react";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { FlatList } from "react-native";
 import { BookmarkIcon, LikeIcon, ShareIcon } from "./Icons";
 import { Image } from "expo-image";
-import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 // const PostModal = lazy(() => import("./PostModal"));
 
